@@ -24,10 +24,14 @@ menu:
 
 
 links:
-   - title: " My LinkedIn"
+   - title: LinkedIn
      url: http://www.linkedin.com/in/abdomagdy00
      intro: "My Linkin account."
      icon: "fa fa-linkedin"
+
+   - title: Github
+     url: https://github.com/abdomagdy0
+     icon: "fa fa-github"
 
 widgets:
 - search
