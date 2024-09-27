@@ -1,7 +1,8 @@
 slogan: "Welcome researcher! thanks for stopping by :)"
 +slogan: "Latest Posts:"
 
-show_heart: true
+show_heart: false
+
 
 show_slogan: true
 
