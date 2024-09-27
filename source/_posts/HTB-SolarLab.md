@@ -292,11 +292,14 @@ becb0c67cfec25aa266ae077e18177c5c3308e2255db062e4f0b77c577e159a11a94016d57ac
 * Key:
 hGXiFzsKaAeYLjn  
 ```
+
 i used the tool from the second link to decrypt the password:
 ```
+
 java -<encrypted-password> <key>	
 ```
 ![alt text](../images/solarlab/java-cve.png)
+
 We found it!:
 ```
 ThisPasswordShouldDo!@ 
